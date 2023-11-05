@@ -1,14 +1,21 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define MAXRINGS 5
-#define SPACER 5
+#define MAXRINGS 3
+#define SPACER 3
 #define SP "     "
 
 int moves = 0;
-int a[MAXRINGS] = {5, 4, 3, 2, 1};
-int b[MAXRINGS] = {};
-int c[MAXRINGS] = {};
+int a[MAXRINGS];
+int b[MAXRINGS];
+int c[MAXRINGS];
+
+int getcell(int t[], int i) {
+    if (i <= MAXRINGS) {
+        return t[i - 1];
+    }
+    return -1;
+}
 
 void print_towers() {
     int i = MAXRINGS;
@@ -16,12 +23,22 @@ void print_towers() {
     moves += 1;
     printf("\033[%dAMove: %d\n\n", MAXRINGS + 7, moves);
     while (i > 0) {
-        printf("%*d%s%*d%s%*d\n", (int)(sizeof(a)/sizeof(a[0])), a[i-1], SP, (int)(sizeof(b)/sizeof(b[0])), b[i-1], SP, (int)(sizeof(c)/sizeof(c[0])), c[i-1]);
-        i -= 1;
-    }
+         int cell_a = getcell(a, i);
+        int cell_b = getcell(b, i);
+        int cell_c = getcell(c, i);
 
-    printf("--------------------------------------\n");
-    printf("%*c%s%*c%s%*c\n\n", (int)(sizeof(a)/sizeof(a[0])), 'A', SP, (int)(sizeof(b)/sizeof(b[0])), 'B', SP, (int)(sizeof(c)/sizeof(c[0])), 'C');
+        char char_a = (cell_a == -1) ? '|' : cell_a + '0';
+        char char_b = (cell_b == -1) ? '|' : cell_b + '0';
+        char char_c = (cell_c == -1) ? '|' : cell_c + '0';
+
+        printf("%*c%*c%*c\n", SPACER, char_a, SPACER, char_b, SPACER, char_c);
+        i--;
+    }
+ for (int j = 0; j < SPACER * 2 + 3 * MAXRINGS; j++) {
+        printf("-");
+    }
+    printf("\n");
+    printf("%*c%*c%*c\n\n", SPACER, 'A', SPACER, 'B', SPACER, 'C');
 }
 
 void move(int n, int* ta, int* tb, int* tc) {
@@ -61,7 +78,12 @@ void move(int n, int* ta, int* tb, int* tc) {
 }
 
 int main() {
-    printf("\n\n\n\n\n\n\n\n");
+       for (int i = 0; i < MAXRINGS; i++) {
+        a[i] = MAXRINGS - i;
+        b[i] = 0;
+        c[i] = 0;
+    }
+     printf("\033c");
 
     print_towers();
     move(MAXRINGS, a, c, b);
