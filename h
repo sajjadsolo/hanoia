@@ -16,7 +16,7 @@ getcell(int *t, int i) {
         return t[i - 1];
     }
     
-    return -1;
+    return 0;
 }
 
 void 
