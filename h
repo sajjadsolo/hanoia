@@ -41,32 +41,6 @@ print_towers() {
 }
 
 
-void separateNumbers(int arr[], int size) {
-    int i, j, temp;
-    
-    // Traverse the array from left to right
-    for (i = 0; i < size; i++) {
-        // If the current element is 0, swap it with the element at the beginning
-        if (arr[i] == 0) {
-            temp = arr[i];
-            arr[i] = arr[0];
-            arr[0] = temp;
-        }
-    }
-    
-    // Traverse the array from right to left
-    for (i = size - 1; i >= 0; i--) {
-        // If the current element is greater than 0, swap it with the element at the end
-        if (arr[i] > 0) {
-            temp = arr[i];
-            for (j = i; j < size - 1; j++) {
-                arr[j] = arr[j + 1];
-            }
-            arr[size - 1] = temp;
-        }
-    }
-}
-
 void
 move(int n, int* ta, int* tb, int* tc) {
     
