@@ -61,17 +61,7 @@ move(int n, int* ta, int* tb, int* tc) {
         ta[aindex] = 0;
         print_towers();
     }
-    else {
-        int i = bindex - 1;
-        while (i >= 0 && tb[i] == 0) {
-            tb[i] = ta[aindex];
-            ta[aindex] = 0;
-            aindex = i;
-            i--;
-            print_towers();
-        }
-    }
-
+    
     move(n - 1, tc, tb, ta);
 }
 
